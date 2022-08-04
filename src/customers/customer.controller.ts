@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { Customer } from './Customer.model';
 
@@ -8,7 +8,13 @@ export class CustomerController {
 
   @Get(":id")
   find(@Param("id") id: string): Customer {
-    return this.customerService.find(id);
+    let customer = this.customerService.find(id);
+
+    if (!customer) {
+      throw new NotFoundException(`Customer with ID '${id}' not found!`);
+    }
+
+    return customer;
   }
 
   @Get()
