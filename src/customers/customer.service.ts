@@ -1,22 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Customer } from './Customer.model';
 
 @Injectable()
 export class CustomerService {
 
-  private customers: Customer[] = [];
+  constructor(
+    @InjectRepository(Customer) 
+    private customerRepository: Repository<Customer>
+  ) { }
   
   save(customer: Customer) {
-    customer.id = randomUUID();
-    this.customers.push(customer);
+
   }
 
-  findAll(): Customer[] {
-    return this.customers;
+  findAll(): Promise<Customer[]> {
+    return this.customerRepository.find();
   }
 
-  find(id: string): Customer {
-    return this.customers.find(customer => customer.id == id);
+  find(id: string): Promise<Customer> {
+    return this.customerRepository.findOneBy({ id });
   }
 }
