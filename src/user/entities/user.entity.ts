@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
 import { Customer } from "./customer.entity";
 import { Staff } from "./staff.entity";
 
@@ -22,7 +22,23 @@ export class User {
     @JoinColumn()
     staff: Staff;
 
+    @Exclude()
+    @RelationId('staff')
+    staffId: number;
+
+    get isStaff(): boolean {
+        return !!this.staffId;
+    }
+
+    get isCustomer(): boolean {
+        return !!this.customerId;
+    }
+
     @OneToOne(() => Customer)
     @JoinColumn()
     customer: Customer;
+    
+    @Exclude()
+    @RelationId('customer')
+    customerId: number;
 }

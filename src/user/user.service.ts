@@ -63,16 +63,15 @@ export class UserService {
 
         await this.userRepository.save(user);
     }
-
-    async getCurrent(): Promise<User> {
-        return this.userRepository.findOneBy({ id: 2 });
-    }
-
+    
     lookup(username: string): Promise<User> {
         return this.userRepository.findOneBy({ username });
     }
 
-    get(id: number): Promise<User> {
-        return this.userRepository.findOneBy({ id });
+    get(id: number, profile = false): Promise<User> {
+        return this.userRepository.findOne({
+            where: { id },
+            relations: profile ? ["staff", "customer"] : []
+        });
     }
 }
