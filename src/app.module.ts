@@ -5,7 +5,6 @@ import { Customer } from './customers/Customer.model';
 import { CustomerModule } from './customers/customer.module';
 import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
-import { CommonModule } from './common/common.module';
 
 @Module({
   providers: [{
@@ -16,7 +15,6 @@ import { CommonModule } from './common/common.module';
     useValue: new ValidationPipe({ whitelist: true })
   }],
   imports: [
-    CommonModule,
     CustomerModule,
     UserModule,
     TypeOrmModule.forRoot({
