@@ -11,12 +11,12 @@ function year18(): Date {
 }
 
 export class CustomerPayload extends UserPayload {
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     name: string;
 
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     address: string;
 
     @IsEmail()
@@ -25,11 +25,10 @@ export class CustomerPayload extends UserPayload {
     @IsPhoneNumber('RO')
     phone: string;
     
-    @IsDate()
     @MaxDate(year18())
+    @IsDate()
     dob: Date;
 
-    @IsOptional()
     @IsEnum(Gender)
     gender?: Gender;
 } 

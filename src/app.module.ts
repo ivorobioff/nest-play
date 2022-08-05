@@ -15,7 +15,7 @@ import { Staff } from './user/entities/staff.entity';
     useClass: ClassSerializerInterceptor
   }, {
     provide: APP_PIPE,
-    useValue: new ValidationPipe({ whitelist: true })
+    useValue: new ValidationPipe({ whitelist: true, stopAtFirstError: true })
   }],
   imports: [
     ProductModule,

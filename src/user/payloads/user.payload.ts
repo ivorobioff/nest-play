@@ -3,13 +3,13 @@ import { UniqueUsernameConstraint } from "../unique-username.constraint";
 
 export class UserPayload {
 
-    @IsString()
+    @Validate(UniqueUsernameConstraint)
     @IsAlphanumeric()
     @MinLength(3)
-    @Validate(UniqueUsernameConstraint)
+    @IsString()
     username: string;
 
-    @IsString()
     @MinLength(6)
+    @IsString()
     password: string;
 }
