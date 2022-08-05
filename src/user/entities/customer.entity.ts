@@ -18,7 +18,7 @@ export class Customer {
     @Column()
     phone: string;
     
-    @Column()
+    @Column({ type: 'date'})
     dob: Date;
 
     @Column({ nullable: true})
