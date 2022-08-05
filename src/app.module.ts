@@ -5,9 +5,9 @@ import { Product } from './product/product.model';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './user/user.model';
-import { Customer } from './user/customer.model';
-import { Staff } from './user/staff.mode';
+import { User } from './user/entities/user.entity';
+import { Customer } from './user/entities/customer.entity';
+import { Staff } from './user/entities/staff.entity';
 
 @Module({
   providers: [{

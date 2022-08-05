@@ -1,9 +1,7 @@
 import { Exclude } from "class-transformer";
-import { IsAlphanumeric, IsString, MinLength, Validate } from "class-validator";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Customer } from "./customer.model";
-import { Staff } from "./staff.mode";
-import { UniqueUsernameConstraint } from "./unique-username.validator";
+import { Customer } from "./customer.entity";
+import { Staff } from "./staff.entity";
 
 @Entity()
 export class User {
@@ -27,18 +25,4 @@ export class User {
     @OneToOne(() => Customer)
     @JoinColumn()
     customer: Customer;
-}
-
-
-export class UserPayload {
-
-    @IsString()
-    @IsAlphanumeric()
-    @MinLength(3)
-    @Validate(UniqueUsernameConstraint)
-    username: string;
-
-    @IsString()
-    @MinLength(6)
-    password: string;
 }

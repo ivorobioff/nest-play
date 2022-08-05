@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { CustomerPayload } from "./customer.model";
-import { StaffPayload } from "./staff.mode";
-import { User } from "./user.model";
+import { User } from "./entities/user.entity";
+import { CustomerPayload } from "./payloads/customer.payload";
+import { StaffPayload } from "./payloads/staff.payload";
 import { UserService } from "./user.service";
 
 @Controller("users")

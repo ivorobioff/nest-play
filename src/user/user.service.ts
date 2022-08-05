@@ -2,9 +2,12 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { PasswordService } from "src/common/password.service";
 import { Repository } from "typeorm";
-import { Customer, CustomerPayload } from "./customer.model";
-import { Staff, StaffPayload } from "./staff.mode";
-import { User, UserPayload } from "./user.model";
+import { Customer } from "./entities/customer.entity";
+import { Staff } from "./entities/staff.entity";
+import { User } from "./entities/user.entity";
+import { CustomerPayload } from "./payloads/customer.payload";
+import { StaffPayload } from "./payloads/staff.payload";
+import { UserPayload } from "./payloads/user.payload";
 
 @Injectable()
 export class UserService {
