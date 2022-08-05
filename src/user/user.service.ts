@@ -4,7 +4,7 @@ import { PasswordService } from "src/common/password.service";
 import { Repository } from "typeorm";
 import { Customer, CustomerPayload } from "./customer.model";
 import { Staff, StaffPayload } from "./staff.mode";
-import { User } from "./user.model";
+import { User, UserPayload } from "./user.model";
 
 @Injectable()
 export class UserService {
@@ -17,11 +17,48 @@ export class UserService {
     ) { }
     
     async createStaff(payload: StaffPayload): Promise<void> {
-        
+
+        let staff = new Staff();
+
+        staff.email = payload.email;
+        staff.firstName = payload.firstName;
+        staff.lastName = payload.lastName;
+
+        staff = await this.staffRepository.save(staff);
+
+        await this.createUser(payload, staff);
     }
 
     async createCustomer(payload: CustomerPayload): Promise<void> {
+        let customer = new Customer();
 
+        customer.address = payload.address;
+        customer.dob = payload.dob;
+        customer.email = payload.email;
+        customer.gender = payload.gender;
+        customer.name = payload.name;
+        customer.phone = payload.phone;
+
+        customer = await this.customerRepository.save(customer);
+
+        await this.createUser(payload, customer);
+    }
+
+    private async createUser(payload: UserPayload, staff: Staff): Promise<void>;
+    private async createUser(payload: UserPayload, customer: Customer): Promise<void>;
+
+    private async createUser(payload: UserPayload, profile: Staff | Customer): Promise<void> {
+        let user = new User();
+        user.username = payload.username;
+        user.password = await this.passwordService.encrypt(payload.password);
+        
+        if (profile instanceof Staff) {
+            user.staff = profile;
+        } else {
+            user.customer = profile;
+        }
+
+        await this.userRepository.save(user);
     }
 
     async getCurrent(): Promise<User> {

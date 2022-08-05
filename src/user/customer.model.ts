@@ -61,5 +61,5 @@ export class CustomerPayload extends UserPayload {
 
     @IsOptional()
     @IsEnum(Gender)
-    gender: Gender;
+    gender?: Gender;
 } 

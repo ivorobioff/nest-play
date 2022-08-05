@@ -1,6 +1,6 @@
 import { Exclude } from "class-transformer";
 import { IsAlphanumeric, IsString, MinLength } from "class-validator";
-import { Column, CreateDateColumn, Entity, JoinTable, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "./customer.model";
 import { Staff } from "./staff.mode";
 
@@ -20,11 +20,11 @@ export class User {
     createdAt: Date;
     
     @OneToOne(() => Staff)
-    @JoinTable()
+    @JoinColumn()
     staff: Staff;
 
     @OneToOne(() => Customer)
-    @JoinTable()
+    @JoinColumn()
     customer: Customer;
 }
 
