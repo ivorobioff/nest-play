@@ -21,12 +21,10 @@ export class User {
     
     @OneToOne(() => Staff)
     @JoinTable()
-    @Column({ nullable: true })
     staff: Staff;
 
     @OneToOne(() => Customer)
     @JoinTable()
-    @Column({ nullable: true })
     customer: Customer;
 }
 
