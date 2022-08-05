@@ -11,6 +11,11 @@ export class UniqueUsernameConstraint implements ValidatorConstraintInterface {
     constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
 
     async validate(username: string, args?: ValidationArguments): Promise<boolean> {
+
+        if (!username || typeof username !== 'string' || username.trim().length == 0) {
+            return true;
+        }
+
         let user = await this.userRepository.findOneBy({ username });
         return !user;
     }
