@@ -1,9 +1,17 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module, ValidationPipe } from '@nestjs/common';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from './customers/Customer.model';
 import { CustomerModule } from './customers/customer.module';
 
 @Module({
+  providers: [{
+    provide: APP_INTERCEPTOR,
+    useClass: ClassSerializerInterceptor
+  }, {
+    provide: APP_PIPE,
+    useValue: new ValidationPipe({ whitelist: true })
+  }],
   imports: [
     CustomerModule,
     TypeOrmModule.forRoot({
