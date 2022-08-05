@@ -20,6 +20,9 @@ export class UserService {
         return this.userRepository.save(user);
     }
 
+    async get(id: number): Promise<User> {
+        return this.userRepository.findOneBy({ id });
+    }
 
     lookup(username: string): Promise<User> {
         return this.userRepository.findOneBy({ username });
