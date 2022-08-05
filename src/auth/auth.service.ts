@@ -27,7 +27,7 @@ export class AuthService {
             return null;
         }
 
-        let token = this.jwtService.sign({ username: user.username, sub: user.id });
+        let token = this.jwtService.sign({ sub: user.id });
 
         return { token };
     }

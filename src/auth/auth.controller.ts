@@ -1,4 +1,4 @@
-import { Body, Controller, ForbiddenException, Post } from '@nestjs/common';
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 import { AuthResult } from './auth.result';
 import { AuthService } from './auth.service';
 import { CredentialsPayload } from './credentials.payload';
@@ -13,7 +13,7 @@ export class AuthController {
         let result = await this.authService.login(payload);
 
         if (!result) {
-            throw new ForbiddenException();
+            throw new UnauthorizedException();
         }
 
         return result;

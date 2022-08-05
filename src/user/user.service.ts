@@ -71,4 +71,8 @@ export class UserService {
     lookup(username: string): Promise<User> {
         return this.userRepository.findOneBy({ username });
     }
+
+    get(id: number): Promise<User> {
+        return this.userRepository.findOneBy({ id });
+    }
 }
