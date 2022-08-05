@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsString, MinLength } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -29,6 +29,7 @@ export class UserPayload {
     username: string;
 
     @IsString()
+    @MinLength(6)
     password: string;
 
     @IsString()
