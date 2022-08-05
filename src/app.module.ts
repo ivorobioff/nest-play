@@ -3,6 +3,7 @@ import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from './customers/Customer.model';
 import { CustomerModule } from './customers/customer.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   providers: [{
@@ -14,6 +15,7 @@ import { CustomerModule } from './customers/customer.module';
   }],
   imports: [
     CustomerModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
