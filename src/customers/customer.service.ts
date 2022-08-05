@@ -11,8 +11,8 @@ export class CustomerService {
     private customerRepository: Repository<Customer>
   ) { }
   
-  save(customer: Customer) {
-
+  create(customer: Customer) {
+    console.log(customer);
   }
 
   findAll(): Promise<Customer[]> {

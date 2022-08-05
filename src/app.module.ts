@@ -10,7 +10,7 @@ import { CustomerModule } from './customers/customer.module';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
+      username: 'admin',
       password: '1234',
       database: 'nest_play',
       entities: [Customer]

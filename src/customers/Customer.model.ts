@@ -1,8 +1,10 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Customer {
 
+    @Exclude({ toPlainOnly: true })
     @PrimaryGeneratedColumn()
     id: string;
 
@@ -12,6 +14,7 @@ export class Customer {
     @Column()
     email: string;
 
+    @Exclude()
     @Column({ default: true })
     isActive: boolean;
 }

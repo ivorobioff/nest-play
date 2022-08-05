@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UseInterceptors } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { Customer } from './Customer.model';
 
@@ -7,8 +7,8 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get(":id")
-  find(@Param("id") id: string): Customer {
-    let customer = this.customerService.find(id);
+  async find(@Param("id") id: string): Promise<Customer> {
+    let customer = await this.customerService.find(id);
 
     if (!customer) {
       throw new NotFoundException(`Customer with ID '${id}' not found!`);
@@ -18,12 +18,12 @@ export class CustomerController {
   }
 
   @Get()
-  findAll(): Customer[] {
+  findAll(): Promise<Customer[]> {
     return this.customerService.findAll();
   }
 
   @Post()
-  save(@Body() data: Customer) {
-    this.customerService.save(data);
+  create(@Body() data: Customer) {
+    this.customerService.create(data);
   }
 }
