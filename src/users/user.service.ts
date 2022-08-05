@@ -14,4 +14,9 @@ export class UserService {
         let user = Object.assign(new User(), payload);
         return this.userRepository.save(user);
     }
+
+
+    lookup(username: string): Promise<User> {
+        return this.userRepository.findOneBy({ username });
+    }
 }

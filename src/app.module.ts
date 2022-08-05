@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from './customers/Customer.model';
 import { CustomerModule } from './customers/customer.module';
 import { UserModule } from './users/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   providers: [{
@@ -25,7 +26,8 @@ import { UserModule } from './users/user.module';
       database: 'nest_play',
       entities: [Customer],
       synchronize: true
-    })
+    }),
+    AuthModule
   ]
 })
 export class AppModule {}
