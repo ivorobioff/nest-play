@@ -1,7 +1,8 @@
 import { Exclude } from "class-transformer";
-import { IsEmail, IsString, MinLength } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { IsAlphanumeric, IsString, MinLength } from "class-validator";
+import { Column, CreateDateColumn, Entity, JoinTable, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Customer } from "./customer.model";
+import { Staff } from "./staff.mode";
 
 @Entity()
 export class User {
@@ -15,26 +16,29 @@ export class User {
     @Column()
     password: string;
 
-    @Column()
+    @CreateDateColumn()
     createdAt: Date;
     
-    staffId: number;
-    customerId: number;
+    @OneToOne(() => Staff)
+    @JoinTable()
+    @Column({ nullable: true })
+    staff: Staff;
+
+    @OneToOne(() => Customer)
+    @JoinTable()
+    @Column({ nullable: true })
+    customer: Customer;
 }
 
 
 export class UserPayload {
 
     @IsString()
+    @IsAlphanumeric()
+    @MinLength(3)
     username: string;
 
     @IsString()
     @MinLength(6)
     password: string;
-
-    @IsString()
-    name: string;
-
-    @IsEmail()
-    email: string;
 }

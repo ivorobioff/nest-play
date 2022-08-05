@@ -5,6 +5,9 @@ import { Product } from './product/product.model';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { User } from './user/user.model';
+import { Customer } from './user/customer.model';
+import { Staff } from './user/staff.mode';
 
 @Module({
   providers: [{
@@ -24,7 +27,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'admin',
       password: '1234',
       database: 'nest_play',
-      entities: [Product],
+      entities: [Product, User, Customer, Staff],
       synchronize: true
     }),
     AuthModule

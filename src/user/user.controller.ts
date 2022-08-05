@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
-import { User, UserPayload } from "./user.model";
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { CustomerPayload } from "./customer.model";
+import { StaffPayload } from "./staff.mode";
+import { User } from "./user.model";
 import { UserService } from "./user.service";
 
 @Controller("users")
@@ -7,13 +9,18 @@ export class UserController {
 
     constructor(private userService : UserService) { }
     
-    @Post()
-    create(@Body() payload: UserPayload): Promise<User> {
-        return this.userService.create(payload);
+    @Post("staff")
+    async createStaff(@Body() payload: StaffPayload): Promise<void> {
+        await this.userService.createStaff(payload);
     }
 
-    @Get(":id")
-    show(@Param() id: number): Promise<User> {
-        return this.userService.get(id);
+    @Post("customer")
+    async createCustomer(@Body() payload: CustomerPayload): Promise<void> {
+        await this.userService.createCustomer(payload);
+    }
+
+    @Get("current")
+    showCurrent(): Promise<User> {
+        return this.userService.getCurrent();
     }
 }
