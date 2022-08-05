@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Customer } from './Customer.model';
+import { Customer, CustomerPayload } from './Customer.model';
 
 @Injectable()
 export class CustomerService {
@@ -11,15 +11,16 @@ export class CustomerService {
     private customerRepository: Repository<Customer>
   ) { }
   
-  create(customer: Customer) {
-    console.log(customer);
+  create(payload: CustomerPayload): Promise<Customer> {
+    let customer = Object.assign(new Customer(), payload);
+    return this.customerRepository.save(customer);
   }
 
   findAll(): Promise<Customer[]> {
     return this.customerRepository.find();
   }
 
-  find(id: string): Promise<Customer> {
+  find(id: number): Promise<Customer> {
     return this.customerRepository.findOneBy({ id });
   }
 }

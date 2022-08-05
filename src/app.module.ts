@@ -13,7 +13,8 @@ import { CustomerModule } from './customers/customer.module';
       username: 'admin',
       password: '1234',
       database: 'nest_play',
-      entities: [Customer]
+      entities: [Customer],
+      synchronize: true
     })
   ]
 })

@@ -1,12 +1,12 @@
 import { Exclude } from "class-transformer";
+import { IsEmail, IsString } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Customer {
 
-    @Exclude({ toPlainOnly: true })
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     name: string;
@@ -17,4 +17,13 @@ export class Customer {
     @Exclude()
     @Column({ default: true })
     isActive: boolean;
+}
+
+export class CustomerPayload {
+
+    @IsString()
+    name: string;
+
+    @IsEmail()
+    email: string;
 }

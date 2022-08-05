@@ -1,13 +1,13 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { CustomerService } from './customer.service';
-import { Customer } from './Customer.model';
+import { Customer, CustomerPayload } from './Customer.model';
 
 @Controller("customers")
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get(":id")
-  async find(@Param("id") id: string): Promise<Customer> {
+  async find(@Param("id") id: number): Promise<Customer> {
     let customer = await this.customerService.find(id);
 
     if (!customer) {
@@ -23,7 +23,7 @@ export class CustomerController {
   }
 
   @Post()
-  create(@Body() data: Customer) {
-    this.customerService.create(data);
+  create(@Body() payload: CustomerPayload): Promise<Customer> {
+    return this.customerService.create(payload);
   }
 }
