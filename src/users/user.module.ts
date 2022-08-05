@@ -7,8 +7,7 @@ import { UserService } from "./user.service";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User]),
-        CommonModule
+        TypeOrmModule.forFeature([User])
     ],
     providers: [UserService],
     controllers: [UserController]
