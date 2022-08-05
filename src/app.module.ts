@@ -1,9 +1,9 @@
 import { ClassSerializerInterceptor, Module, ValidationPipe } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Customer } from './customers/Customer.model';
-import { CustomerModule } from './customers/customer.module';
-import { UserModule } from './users/user.module';
+import { Product } from './product/product.model';
+import { ProductModule } from './product/product.module';
+import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
     useValue: new ValidationPipe({ whitelist: true })
   }],
   imports: [
-    CustomerModule,
+    ProductModule,
     UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -24,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'admin',
       password: '1234',
       database: 'nest_play',
-      entities: [Customer],
+      entities: [Product],
       synchronize: true
     }),
     AuthModule

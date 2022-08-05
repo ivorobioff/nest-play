@@ -1,9 +1,9 @@
 import { Exclude } from "class-transformer";
-import { IsEmail, IsString } from "class-validator";
+import { IsPositive, IsString } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Customer {
+export class Product {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,18 +12,18 @@ export class Customer {
     name: string;
 
     @Column()
-    email: string;
+    quantity: number;
 
     @Exclude()
     @Column({ default: true })
-    isActive: boolean;
+    available: boolean;
 }
 
-export class CustomerPayload {
+export class ProductPayload {
 
     @IsString()
     name: string;
 
-    @IsEmail()
-    email: string;
+    @IsPositive()
+    quantity: number;
 }
