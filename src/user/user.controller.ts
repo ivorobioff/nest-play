@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/user.guard";
+import { UserGuard } from "src/auth/user.guard";
 import { User } from "./entities/user.entity";
 import { CustomerPayload } from "./payloads/customer.payload";
 import { StaffPayload } from "./payloads/staff.payload";
@@ -20,7 +20,7 @@ export class UserController {
         await this.userService.createCustomer(payload);
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(UserGuard)
     @Get("current")
     showCurrent(@Request() request): Promise<User> {
         return this.userService.get(request.user, true);
