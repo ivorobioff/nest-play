@@ -14,8 +14,6 @@ export class StaffGuard implements CanActivate {
             return false;
         }
         
-        let user = await this.userService.get(userId);
-
-        return !!user.staffId;
+        return this.userService.isStaff(userId);
     }
 }

@@ -22,23 +22,7 @@ export class User {
     @JoinColumn()
     staff: Staff;
 
-    @Exclude()
-    @RelationId('staff')
-    staffId: number;
-
-    get isStaff(): boolean {
-        return !!this.staffId;
-    }
-
-    get isCustomer(): boolean {
-        return !!this.customerId;
-    }
-
     @OneToOne(() => Customer)
     @JoinColumn()
     customer: Customer;
-    
-    @Exclude()
-    @RelationId('customer')
-    customerId: number;
 }

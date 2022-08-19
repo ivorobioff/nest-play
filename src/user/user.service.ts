@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { PasswordService } from "src/common/password.service";
-import { Repository } from "typeorm";
+import { IsNull, Not, Repository } from "typeorm";
 import { Customer } from "./entities/customer.entity";
 import { Staff } from "./entities/staff.entity";
 import { User } from "./entities/user.entity";
@@ -73,5 +73,13 @@ export class UserService {
             where: { id },
             relations: profile ? ["staff", "customer"] : []
         });
+    }
+
+    async isStaff(id: number): Promise<boolean> {
+        return (await this.userRepository.countBy({ id, staff: Not(IsNull()) })) > 0;
+    }
+
+    async isCustomer(id: number): Promise<boolean> {
+        return (await this.userRepository.countBy({ id, customer: Not(IsNull()) })) > 0;
     }
 }

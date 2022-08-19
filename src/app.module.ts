@@ -1,9 +1,10 @@
 import { ClassSerializerInterceptor, Module, ValidationPipe } from '@nestjs/common';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { UserGuard } from './auth/user.guard';
 
 @Module({
   providers: [{
@@ -12,6 +13,9 @@ import { AuthModule } from './auth/auth.module';
   }, {
     provide: APP_PIPE,
     useValue: new ValidationPipe({ whitelist: true, stopAtFirstError: true })
+  }, {
+    provide: APP_GUARD,
+    useClass: UserGuard
   }],
   imports: [
     ProductModule,
