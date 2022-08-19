@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
+import { Open } from "src/auth/open.decorator";
 import { StaffGuard } from "src/auth/staff.guard";
 import { User } from "./entities/user.entity";
 import { CustomerPayload } from "./payloads/customer.payload";
@@ -16,6 +17,7 @@ export class UserController {
         await this.userService.createStaff(payload);
     }
 
+    @Open()
     @Post("customer")
     async createCustomer(@Body() payload: CustomerPayload): Promise<void> {
         await this.userService.createCustomer(payload);
