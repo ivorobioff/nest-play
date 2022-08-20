@@ -16,8 +16,7 @@ export class UniqueUsernameConstraint implements ValidatorConstraintInterface {
             return true;
         }
 
-        let user = await this.userRepository.findOneBy({ username });
-        return !user;
+        return (await this.userRepository.countBy({ username })) === 0;
     }
 
     defaultMessage(args?: ValidationArguments): string {
