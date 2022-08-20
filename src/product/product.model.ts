@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { IsDecimal, IsInt, IsPositive, IsString } from "class-validator";
+import { IsInt, IsNumber, IsPositive, IsString } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -14,6 +14,9 @@ export class Product {
     @Column()
     quantity: number;
 
+    @Column({ type: "decimal", precision: 10, scale: 2 })
+    price: number;
+
     @Exclude()
     @Column({ default: true })
     available: boolean;
@@ -26,9 +29,10 @@ export class ProductPayload {
 
     @IsPositive()
     @IsInt()
+    @IsNumber()
     quantity: number;
     
     @IsPositive()
-    @IsDecimal({ decimal_digits: 2})
+    @IsNumber()
     price: number;
 }
