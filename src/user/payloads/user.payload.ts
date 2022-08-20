@@ -1,9 +1,9 @@
-import { IsAlphanumeric, IsString, MinLength, Validate } from "class-validator";
-import { UniqueUsernameConstraint } from "../unique-username.constraint";
+import { IsAlphanumeric, IsString, MinLength } from "class-validator";
+import { UniqueUsername } from "../unique-username.decorator";
 
 export class UserPayload {
 
-    @Validate(UniqueUsernameConstraint)
+    @UniqueUsername()
     @IsAlphanumeric()
     @MinLength(3)
     @IsString()

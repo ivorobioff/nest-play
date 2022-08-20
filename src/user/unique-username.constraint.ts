@@ -4,7 +4,7 @@ import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface 
 import { Repository } from "typeorm";
 import { User } from "./entities/user.entity";
 
-@ValidatorConstraint({ name: 'UniqueUsername', async: true })
+@ValidatorConstraint({ async: true })
 @Injectable()
 export class UniqueUsernameConstraint implements ValidatorConstraintInterface {
 
