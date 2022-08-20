@@ -5,6 +5,11 @@ import { Staff } from "./staff.entity";
 
 @Entity()
 export class User {
+
+    constructor(id?: number) {
+        this.id = id;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
     

@@ -3,6 +3,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Product {
 
+    constructor(id?: number) {
+        this.id = id;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 
