@@ -5,6 +5,7 @@ import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserGuard } from './auth/user.guard';
+import { CommonModule } from './common/common.module';
 
 @Module({
   providers: [{
@@ -18,6 +19,8 @@ import { UserGuard } from './auth/user.guard';
     useClass: UserGuard
   }],
   imports: [
+    CommonModule,
+    AuthModule,
     ProductModule,
     UserModule,
     TypeOrmModule.forRoot({
@@ -29,8 +32,7 @@ import { UserGuard } from './auth/user.guard';
       database: 'nest_play',
       autoLoadEntities: true,
       synchronize: true
-    }),
-    AuthModule
+    })
   ]
 })
 export class AppModule {}

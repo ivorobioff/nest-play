@@ -1,6 +1,7 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
 import { ProductService as ProductService } from './product.service';
 import { Product as Product, ProductPayload } from './product.model';
+import { StaffGuard } from 'src/auth/staff.guard';
 
 @Controller("products")
 export class ProductController {
@@ -22,6 +23,7 @@ export class ProductController {
     return this.productService.findAll();
   }
 
+  @UseGuards(StaffGuard)
   @Post()
   create(@Body() payload: ProductPayload): Promise<Product> {
     return this.productService.create(payload);
