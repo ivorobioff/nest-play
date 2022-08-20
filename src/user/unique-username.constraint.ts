@@ -21,6 +21,6 @@ export class UniqueUsernameConstraint implements ValidatorConstraintInterface {
     }
 
     defaultMessage(args?: ValidationArguments): string {
-        return 'Username is already taken';
+        return `${args.property} is already taken`;
     }
 }
