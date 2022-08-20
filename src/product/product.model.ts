@@ -33,6 +33,6 @@ export class ProductPayload {
     quantity: number;
     
     @IsPositive()
-    @IsNumber()
+    @IsNumber({ maxDecimalPlaces: 2})
     price: number;
 }
