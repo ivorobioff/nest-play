@@ -37,4 +37,4 @@ import { OrderModule } from './order/order.module';
     OrderModule
   ]
 })
-export class AppModule {}
+export class AppModule { }
