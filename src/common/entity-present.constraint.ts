@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
+import { ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
 import { DataSource } from "typeorm";
 
 @ValidatorConstraint({ async: true })
@@ -15,6 +15,12 @@ export class EntityPresentConstraint implements ValidatorConstraintInterface {
     }
 
     defaultMessage(args?: ValidationArguments): string {
+        const validationOptions: ValidationOptions = args.constraints[1];
+
+        if (validationOptions.each) {
+            return `${args.property} contains non-existent id(s)`
+        }
+
         return `${args.property} not found`;
     }
 }

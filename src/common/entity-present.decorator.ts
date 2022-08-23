@@ -8,7 +8,7 @@ export function EntityPresent(target: EntityTarget<ObjectLiteral>, validationOpt
             target: object.constructor,
             propertyName: propertyName,
             options: validationOptions,
-            constraints: [target],
+            constraints: [target, validationOptions],
             validator: EntityPresentConstraint,
         });
     };
