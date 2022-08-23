@@ -3,6 +3,7 @@ import { CustomerGuard } from "src/auth/customer.guard";
 import { Order } from "./order.entity";
 import { OrderPayload } from "./order.payload";
 import { OrderService } from "./order.service";
+import { SendOrderPayload } from "./send-order.payload";
 
 @Controller("orders")
 @UseGuards(CustomerGuard)
@@ -23,5 +24,10 @@ export class OrderController {
     @Delete(":id")
     destroy(@Request() request, @Param("id") id: number): Promise<void> {
         return this.orderService.remove(request.user, id);
+    }
+    
+    @Post("send")
+    send(@Request() request, @Body() payload: SendOrderPayload): Promise<void> {
+        return this.orderService.send(request.user, payload.ids);
     }
 }
