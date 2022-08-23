@@ -33,4 +33,8 @@ export class OrderService {
             relations
         });
     }
+
+    async remove(userId: number, orderId: number): Promise<void> {
+        await this.orderRepository.delete({ owner: new User(userId), id: orderId });
+    }
 }
