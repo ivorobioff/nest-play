@@ -13,14 +13,14 @@ export class UserController {
     
     @UseGuards(StaffGuard)
     @Post("staff")
-    async createStaff(@Body() payload: StaffPayload): Promise<void> {
-        await this.userService.createStaff(payload);
+    createStaff(@Body() payload: StaffPayload): Promise<User> {
+        return this.userService.createStaff(payload);
     }
 
     @Open()
     @Post("customer")
-    async createCustomer(@Body() payload: CustomerPayload): Promise<void> {
-        await this.userService.createCustomer(payload);
+    async createCustomer(@Body() payload: CustomerPayload): Promise<User> {
+        return this.userService.createCustomer(payload);
     }
 
     @Get("current")

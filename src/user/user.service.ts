@@ -19,7 +19,7 @@ export class UserService {
         private passwordService: PasswordService
     ) { }
     
-    async createStaff(payload: StaffPayload): Promise<void> {
+    async createStaff(payload: StaffPayload): Promise<User> {
 
         let staff = new Staff();
 
@@ -29,10 +29,10 @@ export class UserService {
 
         staff = await this.staffRepository.save(staff);
 
-        await this.createUser(payload, staff);
+        return this.createUser(payload, staff);
     }
 
-    async createCustomer(payload: CustomerPayload): Promise<void> {
+    async createCustomer(payload: CustomerPayload): Promise<User> {
         let customer = new Customer();
 
         customer.address = payload.address;
@@ -44,13 +44,13 @@ export class UserService {
 
         customer = await this.customerRepository.save(customer);
 
-        await this.createUser(payload, customer);
+        return this.createUser(payload, customer);
     }
 
-    private async createUser(payload: UserPayload, staff: Staff): Promise<void>;
-    private async createUser(payload: UserPayload, customer: Customer): Promise<void>;
+    private async createUser(payload: UserPayload, staff: Staff): Promise<User>;
+    private async createUser(payload: UserPayload, customer: Customer): Promise<User>;
 
-    private async createUser(payload: UserPayload, profile: Staff | Customer): Promise<void> {
+    private async createUser(payload: UserPayload, profile: Staff | Customer): Promise<User> {
         let user = new User();
         user.username = payload.username;
         user.password = await this.passwordService.encrypt(payload.password);
@@ -61,7 +61,7 @@ export class UserService {
             user.customer = profile;
         }
 
-        await this.userRepository.save(user);
+        return this.userRepository.save(user);
     }
     
     lookup(username: string): Promise<User> {
