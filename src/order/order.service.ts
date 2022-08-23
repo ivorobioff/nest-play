@@ -14,7 +14,6 @@ export class OrderService {
     ) {}
 
     create(userId: number, payload: OrderPayload): Promise<Order> {
-
         let order = new Order();
         order.owner = new User(userId);
         order.products = payload.productIds.map(productId => new Product(productId));

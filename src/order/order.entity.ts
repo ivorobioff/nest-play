@@ -1,7 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Product } from "src/product/product.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Order {
@@ -10,6 +10,7 @@ export class Order {
     id: number;
 
     @ManyToMany(() => Product)
+    @JoinTable()
     products: Product[];
 
     @CreateDateColumn()
