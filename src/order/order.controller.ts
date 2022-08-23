@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, ParseArrayPipe, Post, Query, Request, UseGuards } from "@nestjs/common";
 import { CustomerGuard } from "src/auth/customer.guard";
 import { Order } from "./order.entity";
 import { OrderPayload } from "./order.payload";
@@ -16,12 +16,7 @@ export class OrderController {
     }
 
     @Get()
-    index(@Request() request): Promise<Order[]> {
-        return this.orderService.findAll(request.user);
-    }
-
-    @Get(":id")
-    show(@Request() request, id: number): Promise<Order> {
-        return this.orderService.find(request.user, id);
+    index(@Request() request, @Query("includes", new ParseArrayPipe({ optional: true })) includes: string[] = []): Promise<Order[]> {
+        return this.orderService.findAll(request.user, includes);
     }
 }

@@ -20,11 +20,17 @@ export class OrderService {
         return this.orderRepository.save(order);
     }
 
-    findAll(userId: number, withProducts = false): Promise<Order[]> {
-        return this.orderRepository.findBy({ owner: new User(userId) });
-    }
+    findAll(userId: number, includes: string[] = []): Promise<Order[]> {
 
-    find(userId: number, orderId: number, withProducts = false): Promise<Order> {
-        return null;
+        let relations = [];
+
+        if (includes.includes("products")) {
+            relations.push("products");
+        }
+
+        return this.orderRepository.find({
+            where: { owner: new User(userId) },
+            relations
+        });
     }
 }
