@@ -1,11 +1,11 @@
-import { IsInt, IsNumber, IsPositive, IsString } from "class-validator";
+import { IsInt, IsNumber, IsPositive, IsString, Min } from "class-validator";
 
 export class ProductPayload {
 
     @IsString()
     name: string;
 
-    @IsPositive()
+    @Min(0)
     @IsInt()
     @IsNumber()
     quantity: number;

@@ -9,8 +9,7 @@ import { OrderPayload } from "./order.payload";
 @Injectable()
 export class OrderService {
     constructor(
-        @InjectRepository(Order)  private orderRepository: Repository<Order>,
-        @InjectRepository(Product) private productRepository: Repository<Product>
+        @InjectRepository(Order)  private orderRepository: Repository<Order>
     ) {}
 
     create(userId: number, payload: OrderPayload): Promise<Order> {
@@ -22,7 +21,7 @@ export class OrderService {
     }
 
     findAll(userId: number, withProducts = false): Promise<Order[]> {
-        return null;
+        return this.orderRepository.findBy({ owner: new User(userId) });
     }
 
     find(userId: number, orderId: number, withProducts = false): Promise<Order> {
